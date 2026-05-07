@@ -13,6 +13,11 @@
         </header>
         <nav>
             <?php echo Menu::getMenu($viewData['selectedItems']); ?>
+
+            <ul class="menu">
+                <li><a href="<?= SITE_ROOT ?>">Főoldal</a></li>
+                <li><a href="<?= SITE_ROOT ?>kilepes">Kilépés</a></li>
+            </ul>
         </nav>
         </main>    
             <aside>
@@ -30,7 +35,7 @@
                 <?php if($viewData['render']) include($viewData['render']); ?>
             </section>
         </main> 
-        
+
         <footer>&copy; Váratlan Fordulat Cukrászda <?= date("Y") ?></footer>
     </body>
 </html>
