@@ -8,22 +8,34 @@
     </head>
     <body>
         <header>
-            <div id="user"><em><?= $_SESSION['userlastname']." ".$_SESSION['userfirstname'] ?></em></div>
+            <div id="user">
+                <em>
+                    <?php
+                        if(isset($_SESSION['userid']) && $_SESSION['userid'] != 0) {
+                            echo "Bejelentkezett: "
+                                .$_SESSION['userlastname']." "
+                                .$_SESSION['userfirstname'];
+
+                            if(isset($_SESSION['username']) && $_SESSION['username'] != "") {
+                                echo " (".$_SESSION['username'].")";
+                            }
+                        }
+                    ?>
+                </em>
+            </div>
+
             <h1 class="header">Web-programozás II - MVC alkalmazás</h1>
         </header>
-        <nav>
-            <?php echo Menu::getMenu($viewData['selectedItems']); ?>
 
-            <ul class="menu">
-                <li><a href="<?= SITE_ROOT ?>">Főoldal</a></li>
-                <li><a href="<?= SITE_ROOT ?>kilepes">Kilépés</a></li>
-            </ul>
+        <nav>
+            <?php echo Menu::getMenu($viewData['selectedItems']); ?>            
         </nav>
-        </main>    
+
+        <main>    
             <aside>
                 <h2>Cukrászda MVC</h2>
 
-                <p>Web-programozás II beadandó</p>
+                <p>Web-programozás LA-02 beadandó</p>
 
                 <hr>
 
@@ -31,6 +43,7 @@
 
                 <p>CRUD • Session • MVC • MySQL</p>
             </aside>
+
             <section>
                 <?php if($viewData['render']) include($viewData['render']); ?>
             </section>
