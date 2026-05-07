@@ -14,14 +14,23 @@
         <nav>
             <?php echo Menu::getMenu($viewData['selectedItems']); ?>
         </nav>
-        <aside>
-            <a href="https://www.uni-neumann.hu" target="_blank" style="background-color:white; padding:0;"><img src="<?=SITE_ROOT?>\images\nje.png" width="150"></a><br>
-            <a href="https://neptun.uni-neumann.hu" target="_blank" style="background-color:white; padding:0;"><img src="<?=SITE_ROOT?>\images\neptun.png" width="150"></a><br>
-            <a href="https://gamf.uni-neumann.hu" target="_blank" style="background-color:white; padding:0;"><img src="<?=SITE_ROOT?>\images\gamf.png" width="150"></a><br>
-        </aside>
-        <section>
-            <?php if($viewData['render']) include($viewData['render']); ?>
-        </section>
-        <footer>&copy; NJE - GAMF - Informatika Tanszék <?= date("Y") ?></footer>
+        </main>    
+            <aside>
+                <h2>Cukrászda MVC</h2>
+
+                <p>Web-programozás II beadandó</p>
+
+                <hr>
+
+                <p>MVC alapú webalkalmazás PHP használatával.</p>
+
+                <p>CRUD • Session • MVC • MySQL</p>
+            </aside>
+            <section>
+                <?php if($viewData['render']) include($viewData['render']); ?>
+            </section>
+        </main> 
+        
+        <footer>&copy; Váratlan Fordulat Cukrászda <?= date("Y") ?></footer>
     </body>
 </html>

@@ -1,47 +1,182 @@
-header, footer {
-    padding: 0.5em; 
-    color: white;
-    background-color: gray;
-    clear: left;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4fff7;
+    color: #1f2933;
+    font-size: 18px;
 }
+
+/* FEJLÉC */
+
+header {
+    background: linear-gradient(135deg, #0f5132, #198754);
+    color: white;
+    padding: 1.2em;
+    text-align: center;
+    position: relative;
+}
+
 h1.header {
+    margin: 0;
+    font-size: 2.3em;
+}
+
+#user {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 0.9em;
+}
+
+/* MENÜ */
+
+nav {
+    background-color: #d8f3dc;
+    padding: 0.8em;
+    border-bottom: 2px solid #95d5b2;
+}
+
+ul.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7em;
     padding: 0;
     margin: 0;
+    list-style: none;
 }
-#user {
-    float: right;
+
+ul.menu li {
+    display: inline;
 }
-aside {
-    display: table-cell;
-    width: 160px;
-    margin: 0;
-    padding: 1em;
-}
-section {
-    display: table-cell;
-    border-left: 1px solid gray;
-    padding: 1em;
-    vertical-align: top;
-}
-ul.menu {
-    float:left;
-    width:100%; /* A menü az alatta levő szövegtől elválik, birtokolja a teljes vízszintes sávját. */
-    padding:0;
-    margin:0;
-    list-style-type:none;
-    background-color: lightblue;
-}        
+
 ul.menu a {
-    float:left;
-    width:6em; /* Fix szélességű gombok érhetők el. Érdemes azonban vigyázni ezzel a módszerrel, mert ha a szöveg nem fér ki, a dizájn szétesik. */
-    text-decoration:none; /* Ne legyen aláhúzva a link. */
-    color:white;
-    background-color:navy;
-    padding:0.2em 0.6em;
-    border-right:1px solid white;
+    display: inline-block;
+    min-width: 8em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #198754, #0f5132);
+    padding: 0.8em 1.2em;
+    border-radius: 12px;
+    font-size: 1.05em;
+    font-weight: bold;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
 }
-ul.menu a.selected{
-    background-color: blue;
+
+ul.menu a.selected {
+    background: linear-gradient(135deg, #52b788, #2d6a4f);
 }
-ul.menu a:hover { background-color:#ff3300} /* Az egérkurzorra színváltással reagál a menüpont. */
-ul.menu li { display:inline } /* Ez a sor oldja meg, hogy a menüpontok egymás mellé kerüljenek. */
+
+ul.menu a:hover {
+    background: linear-gradient(135deg, #2d6a4f, #081c15);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0,0,0,0.35);
+}
+
+/* FŐ TARTALOM */
+
+main {
+    display: flex;
+    min-height: calc(100vh - 220px);
+}
+
+/* OLDALSÁV */
+
+aside {
+    width: 260px;
+    flex-shrink: 0;
+    background-color: #e9f7ef;
+    border-right: 1px solid #95d5b2;
+    padding: 1.5em;
+}
+
+aside h2 {
+    margin-top: 0;
+    color: #0f5132;
+    font-size: 1.5em;
+}
+
+aside p {
+    line-height: 1.6;
+}
+
+/* TARTALOM */
+
+section {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2em;
+
+    text-align: center;
+
+    font-size: 1.2em;
+}
+
+section > * {
+    max-width: 900px;
+}
+
+/* LÁBLÉC */
+
+footer {
+    padding: 1em;
+    color: white;
+    background: linear-gradient(135deg, #0f5132, #198754);
+    text-align: center;
+    font-weight: bold;
+}
+
+/* MOBIL NÉZET */
+
+@media screen and (max-width: 768px) {
+
+    h1.header {
+        font-size: 1.6em;
+    }
+
+    #user {
+        position: static;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    main {
+        flex-direction: column;
+    }
+
+    aside {
+        width: auto;
+        border-right: none;
+        border-bottom: 1px solid #95d5b2;
+    }
+
+    ul.menu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    ul.menu a {
+        width: 90%;
+        max-width: 320px;
+    }
+
+    section {
+        padding: 1.5em;
+        min-height: 400px;
+    }
+}
+
+section > *:first-child {
+    margin-top: 0;
+}

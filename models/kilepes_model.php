@@ -2,17 +2,24 @@
 
 class Kilepes_Model
 {
-	public function get_data()
-	{
-		$retData['eredmény'] = "OK";
-		$retData['uzenet'] = "Visszontlátásra kedves ".$_SESSION['userlastname']." ".$_SESSION['userfirstname']."!";
-		$_SESSION['userid'] =  0;
-		$_SESSION['userlastname'] =  "";
-		$_SESSION['userfirstname'] =  "";
-		$_SESSION['userlevel'] = "1__";
-		Menu::setMenu();
-		return $retData;
-	}
+    public function get_data()
+    {
+        $retData['eredmény'] = "OK";
+
+        $vezeteknev = isset($_SESSION['userlastname']) ? $_SESSION['userlastname'] : "";
+        $keresztnev = isset($_SESSION['userfirstname']) ? $_SESSION['userfirstname'] : "";
+
+        $retData['uzenet'] = "Viszontlátásra, örülünk, hogy itt volt!" . $vezeteknev . " " . $keresztnev . "!";
+
+        $_SESSION['userid'] = 0;
+        $_SESSION['userlastname'] = "";
+        $_SESSION['userfirstname'] = "";
+        $_SESSION['userlevel'] = 0;
+
+        Menu::setMenu();
+
+        return $retData;
+    }
 }
 
 ?>
