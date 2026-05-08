@@ -24,7 +24,7 @@
                 </em>
             </div>
 
-            <h1 class="header">Web-programozás II - MVC alkalmazás</h1>
+            <h1 class="header">Váratlan Fordulat Cukrászda</h1>
         </header>
 
         <nav>
@@ -49,6 +49,6 @@
             </section>
         </main> 
 
-        <footer>&copy; Váratlan Fordulat Cukrászda <?= date("Y") ?></footer>
+        <footer>&copy; WebProg LA02 <?= date("Y") ?></footer>
     </body>
 </html>
