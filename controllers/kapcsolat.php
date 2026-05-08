@@ -11,7 +11,8 @@ class Kapcsolat_Controller
 
         $view = new View_Loader($this->baseName . "_main");
 
-        $view->assign('retData', $retData);
+        foreach($retData as $name => $value)
+            $view->assign($name, $value);
     }
 }
 
