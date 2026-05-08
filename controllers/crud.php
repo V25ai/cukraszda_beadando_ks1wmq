@@ -1,13 +1,13 @@
 <?php
 
-class Kapcsolat_Controller
+class Crud_Controller
 {
-    public $baseName = 'kapcsolat';
+    public $baseName = 'crud';
 
     public function main(array $vars)
     {
-        $kapcsolatModel = new Kapcsolat_Model;
-        $retData = $kapcsolatModel->get_data($vars);
+        $crudModel = new Crud_Model;
+        $retData = $crudModel->get_data($vars);
 
         $view = new View_Loader($this->baseName . "_main");
 

@@ -1,18 +1,20 @@
 <?php
 
-class Kapcsolat_Controller
+class Kepek_Controller
 {
-    public $baseName = 'kapcsolat';
+    public $baseName = 'kepek';
 
     public function main(array $vars)
     {
-        $kapcsolatModel = new Kapcsolat_Model;
-        $retData = $kapcsolatModel->get_data($vars);
+        $kepekModel = new Kepek_Model;
+        $retData = $kepekModel->get_data($vars);
 
         $view = new View_Loader($this->baseName . "_main");
 
         foreach($retData as $name => $value)
+        {
             $view->assign($name, $value);
+        }
     }
 }
 

@@ -4,43 +4,76 @@ class Kapcsolat_Model
 {
     public function get_data($vars)
     {
-        $retData = array(
-            'eredmeny' => "",
-            'uzenet' => ""
-        );
+        $retData['eredmeny'] = "";
+        $retData['uzenet'] = "";
 
-        try {
-            $dbh = new PDO(
-                'mysql:host=localhost;dbname=cukraszda;charset=utf8',
-                'root',
-                ''
-            );
+        if(isset($vars['kuld']))
+        {
+            $nev = trim($vars['nev']);
+            $email = trim($vars['email']);
+            $uzenet = trim($vars['uzenet']);
 
-            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            if(isset($vars['kuld']))
+            if($nev == "" || $email == "" || $uzenet == "")
             {
-                $stmt = $dbh->prepare("
+                $retData['eredmeny'] = "ERROR";
+                $retData['uzenet'] = "Minden mező kitöltése kötelező!";
+                return $retData;
+            }
+
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+            {
+                $retData['eredmeny'] = "ERROR";
+                $retData['uzenet'] = "Hibás email cím!";
+                return $retData;
+            }
+
+            try
+            {
+                $dbh = Database::getConnection();
+
+                $kuldoNev = $nev;
+
+                if(isset($_SESSION['userid']) && $_SESSION['userid'] != 0)
+                {
+                    $kuldoNev = $_SESSION['userlastname'] . " " . $_SESSION['userfirstname'];
+                }
+
+                $sql = "
                     INSERT INTO kapcsolat_uzenetek
-                    (nev, email, uzenet)
+                    (
+                        nev,
+                        email,
+                        uzenet,
+                        kuldo_nev,
+                        kuldes_ideje
+                    )
                     VALUES
-                    (:nev, :email, :uzenet)
-                ");
+                    (
+                        :nev,
+                        :email,
+                        :uzenet,
+                        :kuldo_nev,
+                        NOW()
+                    )
+                ";
+
+                $stmt = $dbh->prepare($sql);
 
                 $stmt->execute(array(
-                    ':nev' => trim($vars['nev']),
-                    ':email' => trim($vars['email']),
-                    ':uzenet' => trim($vars['uzenet'])
+                    ':nev' => $nev,
+                    ':email' => $email,
+                    ':uzenet' => $uzenet,
+                    ':kuldo_nev' => $kuldoNev
                 ));
 
                 $retData['eredmeny'] = "OK";
                 $retData['uzenet'] = "Az üzenet mentése sikeres!";
             }
-        }
-        catch(PDOException $e)
-        {
-            $retData['eredmeny'] = "ERROR";
-            $retData['uzenet'] = $e->getMessage();
+            catch(PDOException $e)
+            {
+                $retData['eredmeny'] = "ERROR";
+                $retData['uzenet'] = "Adatbázis hiba: " . $e->getMessage();
+            }
         }
 
         return $retData;
