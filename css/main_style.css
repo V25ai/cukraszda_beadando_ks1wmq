@@ -180,3 +180,16 @@ footer {
 section > *:first-child {
     margin-top: 0;
 }
+form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+hr {
+    width: 50%;
+    margin: 30px auto;
+}

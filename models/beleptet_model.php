@@ -8,6 +8,41 @@ class Beleptet_Model
 
 		try {
 			$connection = Database::getConnection();
+					if(isset($vars['regisztracio']))
+					{
+						$csaladiNev = trim($vars['reg_csaladi_nev']);
+						$utonev = trim($vars['reg_utonev']);
+						$login = trim($vars['reg_login']);
+						$password = trim($vars['reg_password']);
+
+						if($csaladiNev == "" || $utonev == "" || $login == "" || $password == "")
+						{
+							$retData['eredmeny'] = "ERROR";
+							$retData['uzenet'] = "Minden regisztrációs mező kitöltése kötelező!";
+							return $retData;
+						}
+
+						$hash = password_hash($password, PASSWORD_DEFAULT);
+
+						$sql = "insert into felhasznalok
+								(csaladi_nev, utonev, bejelentkezes, jelszo, jogosultsag)
+								values
+								(:csaladi_nev, :utonev, :bejelentkezes, :jelszo, :jogosultsag)";
+
+						$stmt = $connection->prepare($sql);
+
+						$stmt->execute(array(
+							':csaladi_nev' => $csaladiNev,
+							':utonev' => $utonev,
+							':bejelentkezes' => $login,
+							':jelszo' => $hash,
+							':jogosultsag' => '1'
+						));
+
+						$retData['eredmeny'] = "OK";
+						$retData['uzenet'] = "Sikeres regisztráció! Most már be tudsz jelentkezni.";
+						return $retData;
+					}	
 
 			$sql = "select id, csaladi_nev, utonev, jelszo, jogosultsag 
 					from felhasznalok 
@@ -34,7 +69,11 @@ class Beleptet_Model
 						$_SESSION['userlastname'] = $felhasznalo[0]['csaladi_nev'];
 						$_SESSION['userfirstname'] = $felhasznalo[0]['utonev'];
 						$_SESSION['username'] = $vars['login'];
-						$_SESSION['userlevel'] = $felhasznalo[0]['jogosultsag'];
+					if($felhasznalo[0]['jogosultsag'] == "1") {
+    					$_SESSION['userlevel'] = "_1_";
+					} else {
+    					$_SESSION['userlevel'] = $felhasznalo[0]['jogosultsag'];
+					}
 
 						Menu::setMenu();
 					}
